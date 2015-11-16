@@ -67,40 +67,42 @@ public class VolleyController {
 	/**
 	 * post类型http请求
 	 * 
-	 * @param context
-	 *            上下文
 	 * @param url
 	 *            网络请求地址
+	 * @param tag
+	 *            标签
 	 * @param onResponseListener
 	 *            请求结果回调
 	 * @param onErrorResponseListener
 	 *            请求错误结果回调
 	 */
-	public void postHttp(String url,
+	public void postHttp(String url, String tag,
 			Response.Listener<String> onResponseListener,
 			Response.ErrorListener onErrorResponseListener) {
 		StringRequest strRequest = new StringRequest(Method.POST, url,
 				onResponseListener, onErrorResponseListener);
+		strRequest.setTag(tag);
 		mRequestQueue.add(strRequest);
 	}
 
 	/**
 	 * get类型http请求
 	 * 
-	 * @param context
-	 *            上下文
 	 * @param url
 	 *            网络请求地址
+	 * @param tag
+	 *            标签
 	 * @param onResponseListener
 	 *            请求结果回调
 	 * @param onErrorResponseListener
 	 *            请求错误结果回调
 	 */
-	public void getHttp(String url,
+	public void getHttp(String url, String tag,
 			Response.Listener<String> onResponseListener,
 			Response.ErrorListener onErrorResponseListener) {
 		StringRequest strRequest = new StringRequest(Method.GET, url,
 				onResponseListener, onErrorResponseListener);
+		strRequest.setTag(tag);
 		mRequestQueue.add(strRequest);
 	}
 
@@ -109,6 +111,15 @@ public class VolleyController {
 	 */
 	public void cancelAllRequest() {
 		mRequestQueue.cancelAll(this);
+	}
+
+	/**
+	 * 终止带某tag的请求
+	 * 
+	 * @param tag
+	 */
+	public void cancelRequsetByTag(String tag) {
+		mRequestQueue.cancelAll(tag);
 	}
 
 	/**
@@ -143,27 +154,43 @@ public class VolleyController {
 
 	/**
 	 * 以get方式获取json数据
-	 * @param jsonUrl json的url
-	 * @param responseListener 反馈监听器
-	 * @param errorListener 错误监听器
+	 * 
+	 * @param jsonUrl
+	 *            json的url
+	 * @param tag
+	 *            标签
+	 * @param responseListener
+	 *            反馈监听器
+	 * @param errorListener
+	 *            错误监听器
 	 */
-	public void getJson(String jsonUrl ,Response.Listener<JSONObject> responseListener,
-			Response.ErrorListener errorListener){
+	public void getJson(String jsonUrl, String tag,
+			Response.Listener<JSONObject> responseListener,
+			Response.ErrorListener errorListener) {
 		JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET,
 				jsonUrl, null, responseListener, errorListener);
+		request.setTag(tag);
 		mRequestQueue.add(request);
 	}
-	
+
 	/**
-	 * 以get方式获取json数据
-	 * @param jsonUrl json的url
-	 * @param responseListener 反馈监听器
-	 * @param errorListener 错误监听器
+	 * 以post方式获取json数据
+	 * 
+	 * @param jsonUrl
+	 *            json的url
+	 * @param tag
+	 *            标签
+	 * @param responseListener
+	 *            反馈监听器
+	 * @param errorListener
+	 *            反馈监听器
 	 */
-	public void postJson(String jsonUrl ,Response.Listener<JSONObject> responseListener,
-			Response.ErrorListener errorListener){
+	public void postJson(String jsonUrl, String tag,
+			Response.Listener<JSONObject> responseListener,
+			Response.ErrorListener errorListener) {
 		JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST,
 				jsonUrl, null, responseListener, errorListener);
+		request.setTag(tag);
 		mRequestQueue.add(request);
 	}
 }
