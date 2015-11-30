@@ -119,4 +119,21 @@ public class StringUtils {
 	public static boolean isNull(String str) {
 		return null == str || "".equals(str) || "null".equals(str);
 	}
+	
+	/**
+	 * 判断是否是emoji表情
+	 * @param codePoint
+	 * @return
+	 */
+	public static boolean isEmojiCharacter(char codePoint) {
+		if ((codePoint == 0x2b55) || (codePoint == 0x274c)) {
+			return true;
+		} else {
+			return !((codePoint == 0x0) || (codePoint == 0x9)
+					|| (codePoint == 0xA) || (codePoint == 0xD)
+					|| ((codePoint >= 0x20) && (codePoint <= 0xD7FF))
+					|| ((codePoint >= 0xE000) && (codePoint <= 0xFFFD)) || ((codePoint >= 0x10000) && (codePoint <= 0x10FFFF)));
+
+		}
+	}
 }
