@@ -1,4 +1,4 @@
-package com.aaron.core;
+package com.aaron.core.utils;
 
 import android.content.Context;
 
